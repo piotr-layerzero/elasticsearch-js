@@ -17,39 +17,10 @@
  * under the License.
  */
 
-'use strict'
+import EdgeClient from '../lib/edge'
 
-const {
-  Diagnostic,
-  Transport,
-  WeightedConnectionPool,
-  ClusterConnectionPool,
-  BaseConnectionPool,
-  CloudConnectionPool,
-  BaseConnection,
-  HttpConnection,
-  UndiciConnection,
-  Serializer,
-  errors,
-  events
-} = require('@elastic/transport')
-
-const { default: Client } = require('./lib/client')
-const { default: SniffingTransport } = require('./lib/sniffingTransport')
-
-module.exports = {
-  Client,
-  SniffingTransport,
-  Diagnostic,
-  Transport,
-  WeightedConnectionPool,
-  ClusterConnectionPool,
-  BaseConnectionPool,
-  CloudConnectionPool,
-  BaseConnection,
-  HttpConnection,
-  UndiciConnection,
-  Serializer,
-  errors,
-  events
-}
+export * from '@elastic/transport'
+export * as estypes from '../lib/api/types'
+export * as estypesWithBody from '../lib/api/typesWithBodyKey'
+export { EdgeClient }
+export type { ClientOptions, NodeOptions } from '../lib/edge'

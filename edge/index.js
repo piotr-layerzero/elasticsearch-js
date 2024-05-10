@@ -27,18 +27,17 @@ const {
   BaseConnectionPool,
   CloudConnectionPool,
   BaseConnection,
-  HttpConnection,
-  UndiciConnection,
+  FetchConnection,
   Serializer,
   errors,
   events
 } = require('@elastic/transport')
 
-const { default: Client } = require('./lib/client')
-const { default: SniffingTransport } = require('./lib/sniffingTransport')
+const { default: EdgeClient } = require('../lib/edge')
+const { default: SniffingTransport } = require('../lib/sniffingTransport')
 
 module.exports = {
-  Client,
+  EdgeClient,
   SniffingTransport,
   Diagnostic,
   Transport,
@@ -46,9 +45,8 @@ module.exports = {
   ClusterConnectionPool,
   BaseConnectionPool,
   CloudConnectionPool,
+  FetchConnection,
   BaseConnection,
-  HttpConnection,
-  UndiciConnection,
   Serializer,
   errors,
   events

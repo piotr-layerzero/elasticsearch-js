@@ -18,18 +18,17 @@
  */
 
 import { ConnectionOptions as TlsConnectionOptions } from 'tls'
-import { URL } from 'url'
 import buffer from 'buffer'
 import os from 'os'
 import {
   Transport,
-  UndiciConnection,
   WeightedConnectionPool,
   CloudConnectionPool,
   Serializer,
   Diagnostic,
   errors,
-  BaseConnectionPool
+  BaseConnectionPool,
+  FetchConnection
 } from '@elastic/transport'
 import {
   HttpAgentOptions,
@@ -117,7 +116,7 @@ export interface ClientOptions {
   redaction?: RedactionOptions
 }
 
-export default class Client extends API {
+export default class EdgeClient extends API {
   diagnostic: Diagnostic
   name: string | symbol
   connectionPool: BaseConnectionPool
@@ -160,7 +159,7 @@ export default class Client extends API {
     }
 
     const options: Required<ClientOptions> = Object.assign({}, {
-      Connection: UndiciConnection,
+      Connection: FetchConnection,
       Transport: SniffingTransport,
       Serializer,
       ConnectionPool: (opts.cloud != null) ? CloudConnectionPool : WeightedConnectionPool,
@@ -306,7 +305,7 @@ export default class Client extends API {
     })
   }
 
-  child (opts: ClientOptions): Client {
+  child (opts: ClientOptions): EdgeClient {
     // Merge the new options with the initial ones
     // @ts-expect-error kChild symbol is for internal use only
     const options: ClientOptions = Object.assign({}, this[kInitialOptions], opts)
@@ -324,7 +323,7 @@ export default class Client extends API {
       options.headers = prepareHeaders(options.headers, options.auth)
     }
 
-    return new Client(options)
+    return new EdgeClient(options)
   }
 
   async close (): Promise<void> {
