@@ -18,18 +18,19 @@
  */
 
 import { ConnectionOptions as TlsConnectionOptions } from 'tls'
-import { URL } from 'url'
+// import { URL } from 'url'
 import buffer from 'buffer'
 import os from 'os'
 import {
   Transport,
-  UndiciConnection,
+  //UndiciConnection,
   WeightedConnectionPool,
   CloudConnectionPool,
   Serializer,
   Diagnostic,
   errors,
-  BaseConnectionPool
+  BaseConnectionPool,
+  FetchConnection
 } from '@elastic/transport'
 import {
   HttpAgentOptions,
@@ -63,7 +64,7 @@ if (transportVersion.includes('-')) {
   // clean prerelease
   transportVersion = transportVersion.slice(0, transportVersion.indexOf('-')) + 'p'
 }
-const nodeVersion = process.versions.node
+const nodeVersion = process?.versions?.node ? process.versions.node : "20.0.0"
 
 export interface NodeOptions {
   url: URL
@@ -160,7 +161,7 @@ export default class Client extends API {
     }
 
     const options: Required<ClientOptions> = Object.assign({}, {
-      Connection: UndiciConnection,
+      Connection: FetchConnection,
       Transport: SniffingTransport,
       Serializer,
       ConnectionPool: (opts.cloud != null) ? CloudConnectionPool : WeightedConnectionPool,

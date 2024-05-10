@@ -28,7 +28,7 @@ const {
   CloudConnectionPool,
   BaseConnection,
   HttpConnection,
-  UndiciConnection,
+  // UndiciConnection,
   Serializer,
   errors,
   events
@@ -48,7 +48,7 @@ module.exports = {
   CloudConnectionPool,
   BaseConnection,
   HttpConnection,
-  UndiciConnection,
+  // UndiciConnection,
   Serializer,
   errors,
   events

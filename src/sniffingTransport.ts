@@ -16,8 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import assert from 'assert'
+import { ok as assert } from 'assert'
 import { Transport, SniffOptions } from '@elastic/transport'
 
 export default class SniffingTransport extends Transport {
